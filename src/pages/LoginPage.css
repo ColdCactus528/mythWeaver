@@ -118,10 +118,7 @@
     bottom: 0;
     width: 100%;
     padding: 1rem;
+    font-size: large;
   }
 
-  .subtitle-block {
-    top: 56%;
-    font-size: 1.7rem;
-  }
 }
