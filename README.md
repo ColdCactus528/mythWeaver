@@ -1,69 +1,54 @@
-# React + TypeScript + Vite
+# 🧶 MythWeaver — веб-приложение для создания и ведения персонажей D&D 5e
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+MythWeaver — это инструмент для игроков и ведущих D&D 5e, в котором можно создавать, группировать и адаптировать персонажей под стиль игры.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚧 Состояние проекта
 
-## Expanding the ESLint configuration
+На текущий момент приложение состоит из **двух блоков**:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+1. **Фронтенд** — React-приложение (представлено в этом репозитории)
+2. **Бэкенд с базой данных** — находится в отдельной разработке и будет подключён позже
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## ⚙️ Текущий функционал
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- ✅ Регистрация через Яндекс ID (при подключенной базе данных)
+- ✅ Вход без регистрации (как гость)
+- ✅ Сохранение данных в `localStorage` при гостевом входе
+- ✅ Возможность создавать карточки-заготовки персонажей
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🔮 Ближайшие планы
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- 📁 Возможность создавать **папки с персонажами**
+- 🧾 Добавление **интерактивных листов персонажей**:
+  - Табличный интерфейс с тегами
+  - Модульная настройка листа
+  - Перекомпоновка модулей при переходе в **боевой режим**
+- 🧙 Взаимодействие игроков и мастеров:
+  - Кампании с игроками
+  - Поддержка **homebrew**
+  - Интеграция homebrew в листы
+
+---
+
+## 🖥 Попробовать онлайн
+
+Приложение можно открыть онлайн (через Vercel):  
+📍 [https://mythweaver.vercel.app](https://mythweaver.vercel.app) *(примерная ссылка, замените на свою)*
+
+---
+
+## 🐳 Docker (локальный запуск)
+
+```bash
+# Сборка Docker-образа
+docker build -t mythweaver .
+
+# Запуск контейнера на localhost:8080
+docker run -p 8080:80 mythweaver
+
