@@ -111,3 +111,12 @@
     font-size: 1.7rem;
   }
 }
+
+@media (max-width: 480px) {
+  .button-group {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 1rem;
+  }
+}
