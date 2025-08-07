@@ -1,0 +1,16 @@
+node_modules
+npm-debug.log
+yarn.lock
+.pnpm-store
+
+dist
+build
+
+.dockerignore
+Dockerfile
+
+.vscode
+.idea
+
+.DS_Store
+Thimbs.db

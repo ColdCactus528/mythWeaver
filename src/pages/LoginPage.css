@@ -1,0 +1,113 @@
+.login-content {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+              url('/images/eww.png') no-repeat center center;
+  background-size: cover;
+}
+
+.overlay {
+  width: 100%;
+  height: 100%;
+}
+
+.title-block, 
+.subtitle-block, 
+.button-group {
+  position: absolute; 
+  left: 50%;
+  transform: translateX(-50%); 
+  width: 100%;
+  z-index: 1;
+}
+
+.title {
+  font-family: 'Philosopher', serif;
+  font-weight: 700; 
+  letter-spacing: 0.05em; 
+}
+
+.button-group {
+  display: flex;
+  gap: 1rem; 
+  justify-content: center; 
+  flex-wrap: wrap;
+  bottom: 23.5%;
+}
+
+.rune-button {
+  padding: 12px 24px;
+  font-size: x-large;
+  font-family: 'Philosopher', serif;
+  font-weight: 700; 
+  letter-spacing: 0.05em; 
+  color: #e6e6e6;
+  background: rgba(0, 0, 0, 0.6); /* лёгкая прозрачность */
+  border: 1.5px solid rgba(200, 200, 255, 0.3);
+  border-radius: 8px;
+  backdrop-filter: blur(6px); /* эффект стекла */
+  box-shadow: 0 0 12px rgba(180, 200, 255, 0.3);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  
+}
+
+.rune-button:hover {
+  background: rgba(50, 50, 80, 0.4);
+  border-color: rgba(200, 220, 255, 0.5);
+  box-shadow: 0 0 18px rgba(150, 180, 255, 0.25);
+  transform: translateY(-2px);
+}
+
+.rune-button.ghost {
+  border: 1.5px solid rgba(180, 180, 220, 0.2);
+}
+
+.rune-button.ghost:hover {
+  background: rgba(50, 50, 80, 0.4);
+  border-color: rgba(220, 220, 255, 0.3);
+  box-shadow: 0 0 14px rgba(150, 150, 255, 0.15);
+}
+
+.title-block {
+  text-align: center;
+  top: 30%;
+}
+
+.subtitle-block {
+  top: 60%;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+  font-size: 1.8rem;
+  font-family: 'Marck Script', cursive;
+  font-weight: 700; 
+  letter-spacing: 0.05em; 
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .button-group {
+    flex-direction: column;
+    align-items: center;
+    bottom: 15%;
+  }
+
+  .title-block {
+    top: 31%;
+  }
+
+  .subtitle-block {
+    top: 57.5%;
+    font-size: 1.7rem;
+  }
+}
