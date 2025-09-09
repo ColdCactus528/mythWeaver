@@ -27,7 +27,7 @@ function LoginPage() {
               </div>
             </div>
             <div className="button-group">
-              <button className="rune-button" onClick={handleLogin}>
+              <button className="rune-button" onClick={handleLogin}  disabled>
                 Авторизация через Яндекс
               </button>
               <button className="rune-button ghost" onClick={handleGuest}>

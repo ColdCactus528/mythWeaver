@@ -1,10 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import type { Character} from '../interfaces/Character';
+import type { Character } from '../interfaces/Character';
 import CharacterModal from './CharacterModal';
-
 import { getCharacters, addCharacter, deleteCharacter } from '../services/CharacterService';
-
 import './CharactersPage.css';
+
+const BASE = import.meta.env.BASE_URL;
+
+const PortraitPlaceholder = `${BASE}images/portrait-placeholder.svg`;
+const HoodedPlaceholder   = `${BASE}images/hooded-portrait-placeholder.png`;
+
+const isComplete = (c: Character) => Boolean(c.name && c.race && c.class);
+
+const cardBg = (url?: string) =>
+  url
+    ? {
+        backgroundImage: `
+          linear-gradient(180deg, rgba(10,20,27,0) 0%, rgba(10,20,27,.55) 45%, rgba(10,20,27,.85) 68%),
+          url(${url})
+        `,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center top',
+        backgroundRepeat: 'no-repeat'
+      }
+    : {};
 
 const CharactersPage: React.FC = () => {
   const [characters, setCharacters] = useState<Character[]>([]);
@@ -13,12 +31,7 @@ const CharactersPage: React.FC = () => {
   useEffect(() => {
     const existing = getCharacters();
     if (existing.length === 0) {
-      const defaultChar = addCharacter({
-        name: 'Архетип',
-      race: 'Человек',
-      class: 'Бродяга',
-      description: 'Его Легенда только начинается...',
-      });
+      const defaultChar = addCharacter({ name: 'Артур', race: 'Человек', class: 'Бродяга' });
       setCharacters([defaultChar]);
     } else {
       setCharacters(existing);
@@ -26,23 +39,16 @@ const CharactersPage: React.FC = () => {
   }, []);
 
   const handleCreateCharacter = () => {
-    const newCharData = {
-      name: '',
-      race: '',
-      class: '',
-      description: ''
-    };
-
-    const createdChar = addCharacter(newCharData);
+    const createdChar = addCharacter({ name: '', race: '', class: '' });
     setCharacters(prev => [...prev, createdChar]);
   };
 
   const handleSaveCharacter = (updated: Character) => {
-    const updatedList = characters.map(c => c.id === updated.id ? updated : c);
+    const updatedList = characters.map(c => (c.id === updated.id ? updated : c));
     localStorage.setItem('characters', JSON.stringify(updatedList));
     setCharacters(updatedList);
     setEditingCharacter(null);
-  }
+  };
 
   const handleDeleteCharacter = (id: string) => {
     deleteCharacter(id);
@@ -56,32 +62,50 @@ const CharactersPage: React.FC = () => {
       </header>
 
       <div className="character-grid">
-        {characters.map(char => (
-          <div 
-            key={char.id} 
-            className="character-card"
-            onClick={() => setEditingCharacter(char)}
-          >
-            <div className="card-header">
-              <h2>{char.name}</h2>
+        {characters.map(char => {
+          const media = isComplete(char) ? HoodedPlaceholder : PortraitPlaceholder;
+
+          return (
+            <div
+              key={char.id}
+              className="character-card card-has-media"
+              style={cardBg(media)}
+              onClick={() => setEditingCharacter(char)}
+            >
               <button
                 className="delete-button"
-                onClick={(e) => {
+                onClick={e => {
                   e.stopPropagation();
-                  handleDeleteCharacter(char.id)
+                  handleDeleteCharacter(char.id);
                 }}
                 title="Удалить персонажа"
               >
                 ×
               </button>
+
+              <div className="card-text">
+                <h2 className="card-title">{char.name || 'Немо'}</h2>
+
+                <div className="character-tags">
+                  {char.race ? <span className="pill">{char.race}</span> : null}
+                  {char.class ? <span className="pill">{char.class}</span> : null}
+                </div>
+
+                <p className="character-desc">
+                  {char.description?.trim() ||
+                    (isComplete(char) ? null : 'Описание не задано...')}
+                </p>
+              </div>
             </div>
-            <p className="character-meta">{char.race}, {char.class}</p>
-            {char.description && <p className="description">{char.description}</p>}
-          </div>
-        ))}
-    
-        <button className="character-card create-new-card" onClick={handleCreateCharacter}>
-          +
+          );
+        })}
+
+        <button
+          className="character-card create-new-card"
+          onClick={handleCreateCharacter}
+          aria-label="Создать персонажа"
+        >
+          <span className="big-plus">+</span>
         </button>
       </div>
 
@@ -101,7 +125,5 @@ const CharactersPage: React.FC = () => {
     </div>
   );
 };
-
-
 
 export default CharactersPage;
